@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Maiden Trivia Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .question-box {
+            margin-bottom: 20px;
+        }
+        .choices button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #feedback {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #score, #play-again {
+            margin-top: 20px;
+            font-size: 20px;
+            display: none;
+        }
+        #play-again button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #return-home {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        #return-home:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <a id="return-home" href="/scratch.html">Return to My Website</a>
+    <h1>Iron Maiden Trivia Game</h1>
+    <div id="game-container">
+        <div id="question-box" class="question-box">
+            <p id="question"></p>
+            <div id="choices" class="choices"></div>
+        </div>
+        <p id="feedback"></p>
+        <p id="score"></p>
+        <div id="play-again">
+            <button onclick="startGame()">Play Again</button>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            {
+                question: "Which year was Iron Maiden formed?",
+                choices: ["1975", "1980", "1983", "1990"],
+                correct: 0
+            },
+            {
+                question: "Who is the mascot of Iron Maiden?",
+                choices: ["Vic Rattlehead", "Eddie", "Snaggletooth", "Derek"],
+                correct: 1
+            },
+            {
+                question: "What is the title of Iron Maiden's debut album?",
+                choices: ["Iron Maiden", "Killers", "The Number of the Beast", "Piece of Mind"],
+                correct: 0
+            },
+            {
+                question: "Which Iron Maiden album features the track 'Fear of the Dark'?",
+                choices: ["Somewhere in Time", "Fear of the Dark", "Brave New World", "Seventh Son of a Seventh Son"],
+                correct: 1
+            },
+            {
+                question: "Who replaced Paul Di'Anno as Iron Maiden's lead vocalist?",
+                choices: ["Bruce Dickinson", "Blaze Bayley", "Rob Halford", "Ronnie James Dio"],
+                correct: 0
+            },
+            {
+                question: "What is Iron Maiden's signature aircraft called?",
+                choices: ["Air Maiden", "Ed Force One", "Flight 666", "Maiden Airways"],
+                correct: 1
+            },
+            {
+                question: "Which album features the track 'The Trooper'?",
+                choices: ["Piece of Mind", "Powerslave", "Somewhere in Time", "Killers"],
+                correct: 0
+            },
+            {
+                question: "What is the longest track by Iron Maiden?",
+                choices: ["Rime of the Ancient Mariner", "Empire of the Clouds", "Alexander the Great", "Seventh Son of a Seventh Son"],
+                correct: 1
+            },
+            {
+                question: "Which member of Iron Maiden is the primary songwriter?",
+                choices: ["Steve Harris", "Bruce Dickinson", "Adrian Smith", "Nicko McBrain"],
+                correct: 0
+            },
+            {
+                question: "What is the name of Iron Maiden's live album from 1985?",
+                choices: ["Live After Death", "Rock in Rio", "Death on the Road", "Flight 666"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function displayQuestion() {
+            const questionElement = document.getElementById("question");
+            const choicesElement = document.getElementById("choices");
+            const feedbackElement = document.getElementById("feedback");
+
+            feedbackElement.innerText = "";
+
+            const question = questions[currentQuestion];
+            questionElement.innerText = question.question;
+
+            choicesElement.innerHTML = "";
+            question.choices.forEach((choice, index) => {
+                const button = document.createElement("button");
+                button.innerText = choice;
+                button.onclick = () => checkAnswer(index);
+                choicesElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            const feedbackElement = document.getElementById("feedback");
+
+            if (selected === questions[currentQuestion].correct) {
+                feedbackElement.innerText = "Correct!";
+                feedbackElement.style.color = "green";
+                score++;
+            } else {
+                feedbackElement.innerText = `Wrong! The correct answer is "${questions[currentQuestion].choices[questions[currentQuestion].correct]}".`;
+                feedbackElement.style.color = "red";
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                setTimeout(displayQuestion, 2000);
+            } else {
+                showScore();
+            }
+        }
+
+        function showScore() {
+            const scoreElement = document.getElementById("score");
+            const playAgainElement = document.getElementById("play-again");
+
+            scoreElement.innerText = `Your score: ${score} / ${questions.length}`;
+            scoreElement.style.display = "block";
+
+            playAgainElement.style.display = "block";
+        }
+
+        function startGame() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById("score").style.display = "none";
+            document.getElementById("play-again").style.display = "none";
+            displayQuestion();
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

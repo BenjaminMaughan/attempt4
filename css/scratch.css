@@ -1,0 +1,43 @@
+body {
+    background-color: rgb(204, 200, 200);
+}
+
+.myWebsite {
+    text-indent: 550px;
+    text-size-adjust: 1000px;
+}
+
+.textColor {
+    color: black;
+}
+
+.powerslave {
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+}
+
+.shiftRight {
+position:relative;left: 75px;
+width: 500px;
+}
+
+.youtube {
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top {
+    color: cornflowerblue;
+    font-size: 30px;
+}
+
+.font {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.favorites{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
